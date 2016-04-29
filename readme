@@ -1,0 +1,37 @@
+FILE TRANSFER
+--------------
+Transfer files via sftp (https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server)
+
+sftp username@server_ip
+
+From server to local:
+get remoteFile localFile
+
+From local to server:
+put localFile
+
+
+SETTING UP SSH-KEYS
+--------------------
+
+(Linux)
+Generate a key pair locally:
+~ssh-keygen
+
+Add the key to the authorized keys file (locally):
+~ssh-copy-id username@server_ip
+
+
+SERVER IP
+----------
+
+Reverse proxy ip (Droplet-1): 46.101.146.8
+App-server ip (Droplet-2): 46.101.176.147
+
+
+CONNECTING TO SERVER
+--------------------
+
+~ssh username@server-ip
+
+
