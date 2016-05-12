@@ -7,8 +7,8 @@ var mongoose = restful.mongoose;
 var userSchema = new mongoose.Schema({
   id: String,
   location: Array,
-  logo: Array,
-  type: String,
+  logo: {type: Array},
+  type: {type: String},
   tags: Array,
   activity: Boolean,
   timestamp: Date

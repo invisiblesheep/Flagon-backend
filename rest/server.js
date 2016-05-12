@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 //MongoDB
-mongoose.connect('mongodb://localhost/rest_test');
+mongoose.createConnection('mongodb://localhost/restmongo');
+mongoose.createConnection('mongodb://localhost/datastorage');
 
 //Express
 var app = express();
@@ -30,4 +31,4 @@ app.use(function (req, res) {
 // Start server
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
-})
+});
