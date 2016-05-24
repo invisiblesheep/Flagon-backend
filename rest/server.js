@@ -35,12 +35,8 @@ app.get('/:collection', function(req, res) {
    collectionDriver.findAll(req.params.collection, function(error, objs) {
     	  if (error) { res.send(400, error); }
 	      else {
-	          if (req.accepts('html')) {
-    	          res.render('data',{objects: objs, collection: req.params.collection});
-              } else {
 	          res.set('Content-Type','application/json');
                   res.send(200, objs);
-              }
          }
    	});
 });
