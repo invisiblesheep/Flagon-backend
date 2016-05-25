@@ -63,6 +63,10 @@ app.post('/:collection', function(req, res) {
           if (err) { res.send(400, err); }
           else { res.send(201, docs); }
      });
+     collectionDriver.save("LogBase", object, function(err,docs) {
+           if (err) { console.log('error occured while saving to LogBase'); }
+           else { console.log('saved to LogBase'); }
+      });
 });
 
 app.put('/:collection/:entity', function(req, res) {
@@ -78,8 +82,14 @@ app.put('/:collection/:entity', function(req, res) {
        var error = { "message" : "Cannot PUT a whole collection" };
        res.send(400, error);
    }
-});
 
+   var object = req.body;
+   collectionDriver.save("LogBase", object, function(err,docs) {
+         if (err) { console.log('error occured while saving to LogBase'); }
+         else { console.log('saved to LogBase'); }
+    });
+});
+/*
 app.delete('/:collection/:entity', function(req, res) {
     var params = req.params;
     var entity = params.entity;
@@ -94,6 +104,7 @@ app.delete('/:collection/:entity', function(req, res) {
        res.send(400, error);
    }
 });
+*/
 
 app.get('/', function (req, res) {
     res.send('<html><body><h1>Flagon</h1></body></html>');
