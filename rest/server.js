@@ -48,7 +48,9 @@ app.get('/:collection/:entity', function(req, res) {
    if (entity) {
        collectionDriver.get(collection, entity, function(error, objs) {
           if (error) { res.send(400, error); }
-          else { res.send(200, objs); }
+          else {
+            res.set('Content-Type','application/json');
+            res.send(200, objs); }
        });
    } else {
       res.send(400, {error: 'bad url', url: req.url});
@@ -61,7 +63,9 @@ app.post('/:collection', function(req, res) {
     console.log('save in ' + req.params.collection);
     collectionDriver.save(collection, object, function(err,docs) {
           if (err) { res.send(400, err); }
-          else { res.send(201, docs); }
+          else {
+            res.set('Content-Type','application/json');
+            res.send(201, docs); }
      });
      collectionDriver.save("LogBase", object, function(err,docs) {
            if (err) { console.log('error occured while saving to LogBase'); }
@@ -76,7 +80,9 @@ app.put('/:collection/:entity', function(req, res) {
     if (entity) {
        collectionDriver.update(collection, req.body, entity, function(error, objs) {
           if (error) { res.send(400, error); }
-          else { res.send(200, objs); }
+          else {
+            res.set('Content-Type','application/json');
+            res.send(200, objs); }
        });
    } else {
        var error = { "message" : "Cannot PUT a whole collection" };
