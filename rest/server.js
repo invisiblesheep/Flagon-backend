@@ -28,6 +28,11 @@ MongoClient.connect(mongoHost, function(err, db){
   collectionDriver = new CollectionDriver(db);
 });
 
+setInterval(function(){
+  console.log("setInterval: Removing old entries from FlagBase");
+  collectionDriver.deleteOld("FlagBase");
+}, 5 * 60000);
+
 // Routes
 app.get('/:collection', function(req, res) {
    var params = req.params;

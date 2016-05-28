@@ -82,4 +82,19 @@ CollectionDriver.prototype.delete = function(collectionName, entityId, callback)
     });
 };
 
+CollectionDriver.prototype.deleteOld = function (collectionName, callback) {
+    this.getCollection(collectionName, function(error, the_collection){
+      if(error) callback(error);
+      else {
+        var endDate = new Date();
+        var startDate = new Date(endDate - 5 * 60000);
+        the_collection.remove({'created_at':{'$lt': startDate}});
+        the_collection.remove({'updated_at':{'$lt': startDate}, function(error, doc){
+          if(error) callback(error);
+          else callback(null, doc);
+        }});
+      }
+    });
+};
+
 exports.CollectionDriver = CollectionDriver;
