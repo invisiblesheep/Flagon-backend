@@ -35,7 +35,8 @@ CollectionDriver.prototype.get = function(collectionName, id, callback){
             if(!checkForHexRegExp.test(id)) callback({error: "invalid id"});
             else the_collection.findOne({'_id' :ObjectID(id)}, function(err, doc){
                var loc = doc.location;
-               the_collection.find({location: {'$near' : loc}}).limit(20).toArray(function(err, docs){
+               var userId = ObjectID(id)
+               the_collection.find({location: {'$near' : loc}, _id: {'$ne': userId}}).limit(20).toArray(function(err, docs){
                if(err) callback(err);
                else callback(null, docs);
                 });
