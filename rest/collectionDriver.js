@@ -25,6 +25,8 @@ CollectionDriver.prototype.findAll = function(collectionName, callback){
     });
 };
 
+// The query validates the mongo-id of the object it gets as a parameter and returns flags from the database
+// that reside near the parameter-flags location in distance-order (including the param-flag)
 CollectionDriver.prototype.get = function(collectionName, id, callback){
     this.getCollection(collectionName, function(err, the_collection){
         if(err) callback(err);
@@ -32,9 +34,12 @@ CollectionDriver.prototype.get = function(collectionName, id, callback){
             var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
             if(!checkForHexRegExp.test(id)) callback({error: "invalid id"});
             else the_collection.findOne({'_id' :ObjectID(id)}, function(err, doc){
+               var loc = doc.location;
+               the_collection.find({location: {'$near' : loc}}).limit(20).toArray(function(err, docs){
                if(err) callback(err);
-               else callback(null, doc);
-            });
+               else callback(null, docs);
+                });
+            }); 
         }
     });
 };
